@@ -1,13 +1,10 @@
 {
-  "presets": [
-    "stage-0",
-    "node5",
-    "react"
-  ],
+  "presets": [["env", {
+      "targets": {
+        "browsers": ["last 2 versions", "safari >= 7"]
+      }
+    }], "react"],
   "plugins": [
-    "transform-react-display-name",
-    "transform-decorators",
-    "transform-class-properties",
-    "transform-es2015-classes"
+    "babel-plugin-transform-object-rest-spread",
   ]
 }
