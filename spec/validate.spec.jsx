@@ -300,6 +300,40 @@ describe("Validate Component", () => {
       expect(wrapper.state().errorMessages[fieldName]).toEqual(expectedErrorMessage);
     });
 
+    it("allows you to pass a plain object of key value instead of using event system", () => {
+
+      const fieldName = "test";
+      const minAmount = 3;
+      const invalidValue = "";
+      const validations = {
+        [fieldName]: [`min:${minAmount}`],
+      };
+      const expectedErrorMessage = [
+        validationRules.min.message(minAmount)(fieldName),
+      ];
+
+      const wrapper = mount(
+        <Validate
+          validations={validations}
+        >
+          {({ validate }) => {
+            return (
+              <input
+                onFocus={() => validate({
+                  name: fieldName,
+                  value: invalidValue,
+                })}
+                name={fieldName}
+                defaultValue={invalidValue}
+              />
+            );
+          }}
+        </Validate>
+      );
+
+      wrapper.find("input").simulate("focus");
+      expect(wrapper.state().errorMessages[fieldName]).toEqual(expectedErrorMessage);
+    });
   });
 
   describe("Custom Rules", () => {

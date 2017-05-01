@@ -43,8 +43,17 @@ class Validate extends Component {
   }
 
   handleValidate(e) {
-    const fieldName = e.target.name;
-    const fieldValue = e.target.value;
+    let fieldName = "";
+    let fieldValue = "";
+
+    if (e.target) {
+      fieldName = e.target.name;
+      fieldValue = e.target.value;
+    } else {
+      fieldName = e.name;
+      fieldValue = e.value;
+    }
+
     const fieldErrorMessages = this.testForValidation(fieldName, fieldValue);
     const allErrors = Object.assign(
         {},
